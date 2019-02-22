@@ -49,7 +49,7 @@ _LABELS_RE = re.compile(r"""
 _UNQUOTE_RE = re.compile(r'^([\'"]?)([^\1]*)(\1)$')
 
 
-def merge_resources(resource_list):
+def merge_resources(r1, *rest):
     """Merge multiple resources to get a new resource.
 
     Resources earlier in the list take precedence: if multiple resources share
@@ -57,21 +57,26 @@ def merge_resources(resource_list):
     key. The combined resource's type will be the first non-null type in the
     list.
 
-    :type resource_list: list(:class:`Resource`)
-    :param resource_list: The list of resources to combine.
+    :type r1: class:`Resource`
+    :param r1: The first of one or more resources to merge.
+
+    :type *rest: list(:class:`Resource`)
+    :param *rest: The rest of the resources to merge.
 
     :rtype: :class:`Resource`
     :return: The new combined resource.
     """
-    if not resource_list:
+    if not r1:
         raise ValueError
-    rtype = None
-    for rr in resource_list:
+    if not rest:
+        return r1
+    rtype = r1.type
+    for rr in rest:
         if rr.type:
             rtype = rr.type
             break
-    labels = {}
-    for rr in reversed(resource_list):
+    labels = copy(r1.labels)
+    for rr in reversed(rest):
         labels.update(rr.labels)
     return Resource(rtype, labels)
 
@@ -159,7 +164,7 @@ class Resource(object):
         :rtype: :class:`Resource`
         :return: The new combined resource.
         """
-        return merge_resources([self, other])
+        return merge_resources(self, other)
 
 
 def unquote(string):

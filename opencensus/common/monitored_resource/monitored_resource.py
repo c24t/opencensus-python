@@ -86,4 +86,4 @@ def get_instance():
 
     if not resources:
         return None
-    return resource.merge_resources(resources)
+    return resource.merge_resources(resources[0], *resources[1:])
