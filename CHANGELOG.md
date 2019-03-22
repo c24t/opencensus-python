@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 0.3.2
+Released 2019-03-22
+
+- Release prometheus stats integration package
+- Update exporter and integration package docs
+
 ## 0.3.1
 Released 2019-03-19
 

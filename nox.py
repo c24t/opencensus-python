@@ -31,6 +31,7 @@ def _install_dev_packages(session):
     session.install('-e', 'contrib/opencensus-ext-mysql')
     session.install('-e', 'contrib/opencensus-ext-ocagent')
     session.install('-e', 'contrib/opencensus-ext-postgresql')
+    session.install('-e', 'contrib/opencensus-ext-prometheus')
     session.install('-e', 'contrib/opencensus-ext-pymongo')
     session.install('-e', 'contrib/opencensus-ext-pymysql')
     session.install('-e', 'contrib/opencensus-ext-pyramid')
@@ -115,8 +116,8 @@ def lint(session):
 
     session.run(
         'flake8',
-        '--exclude=opencensus/trace/exporters/gen/',
-        'opencensus/', 'tests/', 'examples/')
+        '--exclude=contrib/opencensus-ext-ocagent/opencensus/ext/ocagent/trace_exporter/gen/',
+        'contrib/', 'opencensus/', 'tests/', 'examples/')
 
 
 @nox.session

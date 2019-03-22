@@ -39,13 +39,14 @@ setup(
     include_package_data=True,
     long_description=open('README.rst').read(),
     install_requires=[
+        'google-cloud-monitoring >= 0.30.0, < 1.0.0',
         'google-cloud-trace >= 0.20.0, < 1.0.0',
         'opencensus >= 0.3.0, < 1.0.0',
     ],
     extras_require={},
     license='Apache-2.0',
-    packages=find_packages(exclude=('tests',)),
+    packages=find_packages(exclude=('examples', 'tests',)),
     namespace_packages=[],
-    url='https://github.com/census-instrumentation/opencensus-python/tree/master/contrib/opencensus-ext-stackdriver',
+    url='https://github.com/census-instrumentation/opencensus-python/tree/master/contrib/opencensus-ext-stackdriver',  # noqa: E501
     zip_safe=False,
 )
